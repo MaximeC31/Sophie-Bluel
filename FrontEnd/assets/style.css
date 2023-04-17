@@ -123,7 +123,12 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+}
+#portfolio {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	align-items: center;
 }
 .gallery {
 	width: 100%;
@@ -155,7 +160,7 @@ margin: auto;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, .projectSelection {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -175,9 +180,30 @@ input[type="submit"]{
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
-	width: 180px;
+	width: 205px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
+}
+
+button[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	border: 2px solid #1D6154;
+	width: 205px;
+	text-align: center;
+	border-radius: 60px;
+}
+
+button[type="submit"]:hover, button[type="submit"]:active{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 205px;
+	text-align: center;
+	border-radius: 60px;
 }
 
 footer nav ul {
@@ -186,3 +212,8 @@ footer nav ul {
 	margin: 2em
 }
 
+#projectOrganization {
+	display: flex;
+	flex-direction: row;
+	gap: 25px;
+}
