@@ -12,7 +12,8 @@ async function initFilters() {
             const buttonAll = document.createElement("button");
             buttonAll.className = "projectSelection";
             buttonAll.type = "submit";
-            buttonAll.id = "all";
+            // buttonAll.id = "data-all";
+            buttonAll.dataset.id = "0";
             buttonAll.textContent = "Tous";
             filterForm.appendChild(buttonAll);
 
@@ -21,7 +22,8 @@ async function initFilters() {
                 const buttonFilter = document.createElement("button");
                 buttonFilter.className = "projectSelection";
                 buttonFilter.type = "submit";
-                buttonFilter.id = category.name;
+                // buttonFilter.id = category.name;
+                buttonFilter.dataset.id = category.id;
                 buttonFilter.textContent = category.name;
                 filterForm.appendChild(buttonFilter);
             }
@@ -78,10 +80,10 @@ function filterProjects(categoryId) {
     gallery.innerHTML = "";
 
     const filteredProjects = worksList.filter(function(project) {
-        if (categoryId === "all") {
+        if (categoryId === "0") {
             return true;
         } else {
-            return categoryId === project.category.name;
+            return categoryId == project.category.id;
         }
     });
 
@@ -112,7 +114,7 @@ async function main() {
     for (const button of buttons) {
         button.addEventListener("click", function (e) {
             e.preventDefault();
-            const projectId = e.target.id;
+            const projectId = e.target.getAttribute("data-id");
             filterProjects(projectId);
         });
     }
