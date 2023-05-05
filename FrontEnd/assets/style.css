@@ -331,10 +331,12 @@ footer nav ul {
 	margin: 20px auto 0 auto !important;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
 }
 
 .underline-text {
 	text-decoration: underline;
+    cursor: pointer;
 }
 
 .input-field-area {
