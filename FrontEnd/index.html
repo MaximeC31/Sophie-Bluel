@@ -7,29 +7,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+		rel="stylesheet">
+	<script src="https://kit.fontawesome.com/2f6094b199.js" crossorigin="anonymous"></script>
 	<meta name="description" content="Page d'accueil de Sophie Bluel">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
 	<header>
-		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+		<a href="./index.html">
+			<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+		</a>
 		<nav>
 			<ul>
-				<li>projets</li>
-				<li>contact</li>
-				<li>login</li>
+				<li><a href="./index.html#portfolio">projets</a></li>
+				<li><a href="./index.html#contact">contact</a></li>
+				<li><a id="log-button-event" href="./login.html">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
+
 	<main>
 		<section id="introduction">
-			<figure>
+			<figure id="media-presentation">
 				<img src="./assets/images/sophie-bluel.png" alt="">
+				<button id="figure-media-button" class="modify-marker"></button>
 			</figure>
 			<article>
+				<button class="modify-marker"></button>
 				<h2>Designer d'espace</h2>
 				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
 					finale du chantier.</p>
@@ -40,13 +47,15 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
+
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<h2 id="project-style">Mes Projets<button id="start-modal" class="modify-marker"></button></h2>
 			<form id="projectOrganization" action="#">
 			</form>
 			<div class="gallery">
 			</div>
 		</section>
+
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
@@ -60,6 +69,8 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
+
+		<aside id="modal-gallery"></aside>
 	</main>
 
 	<footer>

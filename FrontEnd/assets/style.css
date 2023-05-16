@@ -90,6 +90,7 @@ video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	scroll-behavior: smooth;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -136,7 +137,6 @@ table {
 
 /** end reset css**/
 body {
-	max-width: 1140px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
@@ -336,7 +336,7 @@ footer nav ul {
 
 .underline-text {
 	text-decoration: underline;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .input-field-area {
@@ -347,17 +347,131 @@ footer nav ul {
 
 #login-section {
 	display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    min-height: 70vh;
-    justify-content: center;
-    margin: 0;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	min-height: 70vh;
+	justify-content: center;
+	margin: 0;
 }
 
 #login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 400px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover,
+a:active {
+	font-weight: bold;
+}
+
+#logged-header {
+	background-color: black;
+	margin: 0;
+	padding: 10px 0;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 20px;
+}
+
+.publish-button {
+	background-color: white;
+	color: black;
+	padding: 10px 20px;
+	border-radius: 20px;
+	font-weight: bold;
+}
+
+.modify-marker {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 400px;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 14px;
+    color: black;
+    font-weight: 500;
+    font-family: 'Work Sans';
+    background: white;
+    border: none;
+}
+
+#project-style {
+	display: flex;
+	align-items: baseline;
+	column-gap: 10px;
+}
+
+#media-presentation {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+#figure-media-button {
+	margin: auto;
+	width: 80%;
+}
+
+#modal-gallery {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#modal-wrapper {
+	background-color: white;
+	width: 400px;
+	height: 500px;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+i.fa-solid.fa-xmark {
+	text-align: right;
+}
+
+#modal-title {
+	text-align: center;
+}
+
+#buttons-inside-modal {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	align-items: center;
+}
+
+#add-picture-modal {
+	height: 33px;
+	font-size: 1em;
+	border: none;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 200px;
+	border-radius: 30px;
+}
+
+#delete-element-modal {
+	color: red;
+}
+
+#start-modal {
+	cursor: pointer;
 }

@@ -3,7 +3,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
 
     try {
         event.preventDefault();
-        
+
         // Get the values of the email and password input fields
         const emailInputValue = document.getElementById("email-input").value;
         const passwordInputValue = document.getElementById("password-input").value;
@@ -21,16 +21,16 @@ document.getElementById("login-form").addEventListener("submit", async function 
         if (response.status === 200) {
             const loginData = await response.json();
             localStorage.setItem("token", loginData.token);
-            window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
-        } 
-        
+            window.location.href = "./index.html";
+        }
+
         // Display errors in response.status
         else if (response.status === 401) {
             alert(response.statusText);
-        } 
+        }
         else if (response.status === 404) {
             alert(response.statusText);
-        } 
+        }
         else {
             alert("Reponse status undefined");
         };
