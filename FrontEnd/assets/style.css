@@ -420,40 +420,43 @@ a:active {
 }
 
 #modal-gallery {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.8);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 #modal-wrapper {
 	background-color: white;
-	width: 400px;
-	height: 500px;
-	padding: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+    width: 425px;
+    height: 600px;
+    padding: 25px 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: space-between;
 }
 
 i.fa-solid.fa-xmark {
 	text-align: right;
+	cursor: pointer;
 }
 
 #modal-title {
 	text-align: center;
+	font-family: "Work sans";
+	color: black;
 }
 
 #buttons-inside-modal {
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
 
 #add-picture-modal {
@@ -474,4 +477,17 @@ i.fa-solid.fa-xmark {
 
 #start-modal {
 	cursor: pointer;
+}
+
+.element-picture-modal {
+	width: 100%;
+    height: 95px;
+    object-fit: cover;
+}
+
+#modal-elements {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
 }

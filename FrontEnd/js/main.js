@@ -121,18 +121,31 @@ function createInterfaceForLoggedUsers(worksList) {
         // Attach event listeners to the modified buttons
         const activateModal = document.querySelector("#start-modal");
         document.querySelector("#modal-gallery").style.display = "none"
-            activateModal.addEventListener("click", () => {
-                document.querySelector("#modal-gallery").style.display = "flex";
-                // Create and display a modal for editing
-                const modal = document.querySelector("#modal-gallery");
-                modal.innerHTML =
-                    "<div id='modal-wrapper'><i class='fa-solid fa-xmark'></i><h2 id='modal-title'>Galerie photo</h2><div>All Figures</div><div id='buttons-inside-modal'><button id='add-picture-modal'>Ajouter une photo</button><a id='delete-element-modal' href='#'>Supprimer la galerie</a></div><div>";
-                // Attach event listener to the close button of the modal
-                document.querySelector(".fa-solid.fa-xmark").addEventListener("click", () => {
-                    document.querySelector("#modal-gallery").style.display = "none";
-                    document.querySelector("#modal-gallery").innerHTML = "";
-                });
+        activateModal.addEventListener("click", () => {
+            document.querySelector("#modal-gallery").style.display = "flex";
+            // Create and display a modal for editing
+            const modal = document.querySelector("#modal-gallery");
+            modal.innerHTML =
+                "<div id='modal-wrapper'><i class='fa-solid fa-xmark'></i><h2 id='modal-title'>Galerie photo</h2><div id='modal-elements'></div><div id='buttons-inside-modal'><div style='border: 1px solid grey; width: 100%;'></div><button id='add-picture-modal'>Ajouter une photo</button><a id='delete-element-modal' href='#'>Supprimer la galerie</a></div>";
+            // Attach event listener to the close button of the modal
+            document.querySelector(".fa-solid.fa-xmark").addEventListener("click", () => {
+                document.querySelector("#modal-gallery").style.display = "none";
+                document.querySelector("#modal-gallery").innerHTML = "";
             });
+
+            console.log(worksList);
+            for (works of worksList) {
+                const modalElement = document.createElement("div");
+                modalElement.innerHTML = `
+                    <img class='element-picture-modal' src="${works.imageUrl}">
+                    <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                    <i class="fa-solid fa-trash"></i>
+                    <p>éditer</p>
+                    `;
+                document.getElementById("modal-elements").appendChild(modalElement);
+            };
+        });
+
     } else {
         // User is not logged, modify the login button accordingly
         document.getElementById("log-button-event").innerText = "login";
@@ -144,7 +157,6 @@ function createInterfaceForLoggedUsers(worksList) {
 async function main() {
     await initFilters();
     let worksList = await initProjects();
-    console.log(worksList);
 
     // Add onclick event listener to filter buttons
     const buttons = document.getElementsByClassName("projectSelection");
