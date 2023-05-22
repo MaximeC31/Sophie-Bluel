@@ -1,179 +1,228 @@
 // Function to create filter buttons based on categories
 async function initFilters() {
-    try {
-        // Get categories from API
-        const response = await fetch("http://localhost:5678/api/categories");
+  try {
+    // Get categories from API
+    const filterForm = document.querySelector("#projectOrganization");
+    const response = await fetch("http://localhost:5678/api/categories");
 
-        if (response.status === 200) {
-            const categories = await response.json();
-            const filterForm = document.querySelector("#projectOrganization");
+    if (response.status === 200) {
+      const categories = await response.json();
 
-            // Create 'All' filter button
-            const buttonAll = document.createElement("button");
-            buttonAll.className = "projectSelection";
-            buttonAll.type = "submit";
-            buttonAll.dataset.id = "0";
-            buttonAll.textContent = "All";
-            filterForm.appendChild(buttonAll);
+      // Create 'All' filter button
+      const buttonAll = document.createElement("button");
+      buttonAll.className = "projectSelection";
+      buttonAll.type = "submit";
+      buttonAll.dataset.id = "0";
+      buttonAll.textContent = "All";
+      filterForm.appendChild(buttonAll);
 
-            // Create filter buttons for each category
-            for (const category of categories) {
-                const buttonFilter = document.createElement("button");
-                buttonFilter.className = "projectSelection";
-                buttonFilter.type = "submit";
-                buttonFilter.dataset.id = category.id;
-                buttonFilter.textContent = category.name;
-                filterForm.appendChild(buttonFilter);
-            }
-        } else {
-            console.log("response.status != 200");
-            console.log(response);
-        }
-    } catch (error) {
-        console.error(error);
+      // Create filter buttons for each category
+      for (const category of categories) {
+        const buttonFilter = document.createElement("button");
+        buttonFilter.className = "projectSelection";
+        buttonFilter.type = "submit";
+        buttonFilter.dataset.id = category.id;
+        buttonFilter.textContent = category.name;
+        filterForm.appendChild(buttonFilter);
+      }
+    } else {
+      console.log("response.status != 200", response.status);
+      console.log(response);
     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Function to fetch and display projects
 async function initProjects() {
-    try {
-        // Get works from API
-        const response = await fetch("http://localhost:5678/api/works");
+  try {
+    // Get works from API
+    const response = await fetch("http://localhost:5678/api/works");
+    const galleryContainer = document.querySelector(".gallery");
 
-        if (response.status === 200) {
-            let worksList = await response.json();
-            const gallery = document.querySelector(".gallery");
+    if (response.status === 200) {
+      let worksList = await response.json();
 
-            // Create and show projects in the gallery
-            for (const work of worksList) {
-                const projectContainer = document.createElement("figure");
-                gallery.appendChild(projectContainer);
-
-                const projectImg = document.createElement("img");
-                projectImg.src = work.imageUrl;
-                projectImg.alt = work.title;
-                projectContainer.appendChild(projectImg);
-
-                const projectTitle = document.createElement("figcaption");
-                projectTitle.innerHTML = work.title;
-                projectContainer.appendChild(projectTitle);
-            }
-            return worksList;
-        } else {
-            console.log("response.status != 200");
-            console.log(response);
-        }
-    } catch (error) {
-        console.error(error);
+      // Create and show projects in the gallery
+      for (const work of worksList) {
+        const projectHTML = `
+          <figure>
+          <img src="${work.imageUrl}" alt="${work.title}">
+          <figcaption>${work.title}</figcaption>
+          </figure>
+          `;
+        galleryContainer.insertAdjacentHTML("beforeend", projectHTML);
+      }
+      return worksList;
+    } else {
+      console.log("response.status != 200", response.status);
+      console.log(response);
     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Filter projects based on the selected category
 function filterProjects(projectId, worksList) {
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
 
-    // Filter projects based on the selected category
-    const filteredProjects = worksList.filter(function (project) {
-        if (projectId === "0") {
-            return true;
-        } else {
-            return projectId == project.category.id;
-        }
-    });
-
-    // Display filtered projects in the gallery
-    for (const work of filteredProjects) {
-        const projectContainer = document.createElement("figure");
-        gallery.appendChild(projectContainer);
-
-        const projectImg = document.createElement("img");
-        projectImg.src = work.imageUrl;
-        projectImg.alt = work.title;
-        projectContainer.appendChild(projectImg);
-
-        const projectTitle = document.createElement("figcaption");
-        projectTitle.innerHTML = work.title;
-        projectContainer.appendChild(projectTitle);
+  // Filter projects based on the selected category
+  const filteredProjects = worksList.filter(function (project) {
+    if (projectId === "0") {
+      return true;
+    } else {
+      return projectId == project.category.id;
     }
+  });
+
+  // Display filtered projects in the gallery
+  for (const work of filteredProjects) {
+    const projectContainer = document.createElement("figure");
+    gallery.appendChild(projectContainer);
+
+    const projectImg = document.createElement("img");
+    projectImg.src = work.imageUrl;
+    projectImg.alt = work.title;
+    projectContainer.appendChild(projectImg);
+
+    const projectTitle = document.createElement("figcaption");
+    projectTitle.innerHTML = work.title;
+    projectContainer.appendChild(projectTitle);
+  }
 }
 
 // Function to create interface elements for logged-in users
 function createInterfaceForLoggedUsers(worksList) {
-    // Check if token is present in localStorage to determine if the user is logged
-    if (localStorage.getItem("token")) {
-        // Create sub-header for logged-in users
-        const loggedHeader = document.createElement("header");
-        loggedHeader.innerHTML =
-            "<i class='fa-solid fa-pen-to-square'></i><p>Mode édition</p><a class='publish-button'>Pulier les changements</a>";
-        loggedHeader.id = "logged-header";
-        document.getElementById("log-button-event").innerText = "logout";
-        document.getElementById("log-button-event").setAttribute("href", "./index.html");
-        document.querySelector("body").insertAdjacentElement("afterbegin", loggedHeader);
+  // Check if token is present in localStorage to determine if the user is logged
+  if (localStorage.getItem("token")) {
+    // Create sub-header for logged-in users
+    const loggedHeader = document.createElement("header");
+    loggedHeader.innerHTML =
+      "<i class='fa-solid fa-pen-to-square'></i><p>Mode édition</p><a class='publish-button'>Pulier les changements</a>";
+    loggedHeader.id = "logged-header";
+    document.getElementById("log-button-event").innerText = "logout";
+    document.getElementById("log-button-event").setAttribute("href", "./index.html");
+    document.querySelector("body").insertAdjacentElement("afterbegin", loggedHeader);
 
-        // Modify buttons for logged-in users
-        const modifyButtons = document.querySelectorAll(".modify-marker");
-        for (const modifyButton of modifyButtons) {
-            modifyButton.innerHTML =
-                "<i class='fa-solid fa-pen-to-square' style='color:#000000'></i><p>modifier</p>";
-        }
+    // Modify buttons for logged-in users
+    const modifyButtons = document.querySelectorAll(".modify-marker");
+    for (const modifyButton of modifyButtons) {
+      modifyButton.innerHTML =
+        "<i class='fa-solid fa-pen-to-square' style='color:#000000'></i><p>modifier</p>";
+    }
 
-        // Attach event listeners to the modified buttons
-        const activateModal = document.querySelector("#start-modal");
-        document.querySelector("#modal-gallery").style.display = "none"
-        activateModal.addEventListener("click", () => {
-            document.querySelector("#modal-gallery").style.display = "flex";
-            // Create and display a modal for editing
-            const modal = document.querySelector("#modal-gallery");
-            modal.innerHTML =
-                "<div id='modal-wrapper'><i class='fa-solid fa-xmark'></i><h2 id='modal-title'>Galerie photo</h2><div id='modal-elements'></div><div id='buttons-inside-modal'><div style='border: 1px solid grey; width: 100%;'></div><button id='add-picture-modal'>Ajouter une photo</button><a id='delete-element-modal' href='#'>Supprimer la galerie</a></div>";
-            // Attach event listener to the close button of the modal
-            document.querySelector(".fa-solid.fa-xmark").addEventListener("click", () => {
-                document.querySelector("#modal-gallery").style.display = "none";
-                document.querySelector("#modal-gallery").innerHTML = "";
-            });
+    // Display/Undisplay modal
+    const activateModal = document.querySelector("#start-modal");
+    document.querySelector("#modal-gallery").style.display = "none";
+    activateModal.addEventListener("click", () => {
+      document.querySelector("#modal-gallery").style.display = "flex";
 
-            console.log(worksList);
-            for (works of worksList) {
-                const modalElement = document.createElement("div");
-                modalElement.innerHTML = `
-                    <img class='element-picture-modal' src="${works.imageUrl}">
-                    <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                    <i class="fa-solid fa-trash"></i>
-                    <p>éditer</p>
-                    `;
-                document.getElementById("modal-elements").appendChild(modalElement);
-            };
+      const modalBackground = document.querySelector("#modal-gallery");
+      modalBackground.innerHTML =
+        "<div id='modal-wrapper'><i class='fa-solid fa-xmark'></i><h2 id='modal-title'>Galerie photo</h2><div id='modal-elements'></div><div id='buttons-inside-modal'><div style='border: 1px solid grey; width: 100%;'></div><button id='add-picture-modal'>Ajouter une photo</button><a id='delete-element-modal' href='#'>Supprimer la galerie</a></div>";
+
+      // Attach event listener to the close button of the modal
+      document.querySelector(".fa-solid.fa-xmark").addEventListener("click", () => {
+          document.querySelector("#modal-gallery").style.display = "none";
+          document.querySelector("#modal-gallery").innerHTML = "";
         });
 
-    } else {
-        // User is not logged, modify the login button accordingly
-        document.getElementById("log-button-event").innerText = "login";
-        document.getElementById("log-button-event").setAttribute("href", "./login.html");
-    }
+      // Create works & manage elements
+      for (work of worksList) {
+        const modalElement = document.createElement("div");
+        modalElement.innerHTML = `
+<img class='element-picture-modal' src="${work.imageUrl}">
+<i class="fa-solid fa-arrows-up-down-left-right"></i>
+<i data-id="${work.id}" class="fa-solid fa-trash delete-work"></i>
+<p>éditer</p>
+`;
+        document.getElementById("modal-elements").appendChild(modalElement);
+      }
+
+      // Delete selected project
+      const modalComponent = document.getElementsByClassName("delete-work");
+      for (const component of modalComponent) {
+        component.addEventListener("click", async function () {
+          const targetComponentId = component.getAttribute("data-id");
+          try {
+            const response = await fetch(
+              `http://localhost:5678/api/works/${targetComponentId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+            if (response.status != 200) {
+              console.log("response.status != 200", response.status);
+              console.log(response);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        });
+      }
+
+      // Delete all projects
+      document.getElementById("delete-element-modal").addEventListener("click", async () => {
+        let workIds = worksList.map((item) => item.id);
+        for (const workId of workIds) {
+          try {
+            const response = await fetch(
+              `http://localhost:5678/api/works/${workId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+            if (response.status != 200) {
+              console.log("response.status != 200", response.status);
+              console.log(response);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      });
+    });
+  } else {
+    // User is not logged, modify the login button accordingly
+    document.getElementById("log-button-event").innerText = "login";
+    document.getElementById("log-button-event").setAttribute("href", "./login.html");
+  }
 }
 
 // Main function to initialize other functions
 async function main() {
+  try {
     await initFilters();
     let worksList = await initProjects();
 
     // Add onclick event listener to filter buttons
     const buttons = document.getElementsByClassName("projectSelection");
     for (const button of buttons) {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-            const projectId = e.target.getAttribute("data-id");
-            filterProjects(projectId, worksList);
-        });
+      button.addEventListener("click", function (e) {
+        e.preventDefault();
+        const projectId = e.target.getAttribute("data-id");
+        filterProjects(projectId, worksList);
+      });
     }
 
     createInterfaceForLoggedUsers(worksList);
 
     // Logout - Remove "token" from localStorage with logout event
     document.getElementById("log-button-event").addEventListener("click", () => {
-        localStorage.removeItem("token");
+      localStorage.removeItem("token");
     });
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 }
 
 main();
