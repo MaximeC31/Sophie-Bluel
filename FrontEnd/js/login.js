@@ -1,12 +1,11 @@
 // Add an event listener to the login form for when it is submitted
-document.getElementById("login-form").addEventListener("submit", async function (event) {
+document.getElementById("login-form").addEventListener("submit", async function logginForm (event) {
         try {
             event.preventDefault();
 
             // Get the values of the email and password input fields
             const emailInputValue = document.getElementById("email-input").value;
-            const passwordInputValue =
-                document.getElementById("password-input").value;
+            const passwordInputValue = document.getElementById("password-input").value;
 
             // Make a POST request to the login API endpoint with the email and password values in the request body
             const response = await fetch("http://localhost:5678/api/users/login", {

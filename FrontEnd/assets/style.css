@@ -110,6 +110,10 @@ section {
 
 body {
 	line-height: 1;
+	margin: auto;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    max-width: 1440px;
 }
 
 ol,
@@ -133,13 +137,6 @@ q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-/** end reset css**/
-body {
-	margin: auto;
-	font-family: 'Work Sans';
-	font-size: 14px;
 }
 
 header {
@@ -373,13 +370,17 @@ a:active {
 
 #logged-header {
 	background-color: black;
-	margin: 0;
-	padding: 10px 0;
-	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	column-gap: 20px;
+    margin: 0;
+    padding: 10px 0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .publish-button {
@@ -391,15 +392,15 @@ a:active {
 }
 
 .modify-marker {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    font-size: 14px;
-    color: black;
-    font-weight: 500;
-    font-family: 'Work Sans';
-    background: white;
-    border: none;
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	font-size: 14px;
+	color: black;
+	font-weight: 500;
+	font-family: 'Work Sans';
+	background: white;
+	border: none;
 }
 
 #project-style {
@@ -420,14 +421,15 @@ a:active {
 }
 
 #modal-gallery {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: block;
+	justify-content: center;
+	align-items: center;
+	left: 0;
 }
 
 #modal-wrapper {
@@ -435,10 +437,13 @@ a:active {
     width: 425px;
     height: 600px;
     padding: 25px 50px;
-    display: flex;
+    display: none;
     flex-direction: column;
     border-radius: 10px;
     justify-content: space-between;
+    position: fixed;
+	top: 35px;
+    left: 350px;
 }
 
 i.fa-solid.fa-xmark {
@@ -453,10 +458,10 @@ i.fa-solid.fa-xmark {
 }
 
 #buttons-inside-modal {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
 }
 
 #add-picture-modal {
@@ -469,6 +474,8 @@ i.fa-solid.fa-xmark {
 	background-color: #1D6154;
 	width: 200px;
 	border-radius: 30px;
+	cursor: pointer;
+	margin: 0 auto;
 }
 
 #delete-element-modal {
@@ -481,13 +488,41 @@ i.fa-solid.fa-xmark {
 
 .element-picture-modal {
 	width: 100%;
-    height: 95px;
-    object-fit: cover;
+	height: 95px;
+	object-fit: cover;
 }
 
 #modal-elements {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 10px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-gap: 10px;
+}
+
+#modal-elements>div {
+	position: relative;
+}
+
+#modal-elements i.fa-trash {
+	position: absolute;
+	left: 50px;
+	top: 7px;
+	background: black;
+	color: white;
+	padding: 3px;
+	cursor: pointer;
+}
+
+#modal-elements i.fa-arrows-up-down-left-right {
+	display: none;
+}
+
+#modal-elements div:hover i.fa-arrows-up-down-left-right {
+	display: block;
+	position: absolute;
+	top: 7px;
+	left: 25px;
+	background: black;
+	padding: 3px;
+	color: white;
 }
