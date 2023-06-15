@@ -111,9 +111,9 @@ section {
 body {
 	line-height: 1;
 	margin: auto;
-    font-family: 'Work Sans';
-    font-size: 14px;
-    max-width: 1440px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	max-width: 1440px;
 }
 
 ol,
@@ -370,17 +370,17 @@ a:active {
 
 #logged-header {
 	background-color: black;
-    margin: 0;
-    padding: 10px 0;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 20px;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
+	margin: 0;
+	padding: 10px 0;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 20px;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
 }
 
 .publish-button {
@@ -434,16 +434,16 @@ a:active {
 
 #modal-wrapper {
 	background-color: white;
-    width: 425px;
-    height: 600px;
-    padding: 25px 50px;
-    display: none;
-    flex-direction: column;
-    border-radius: 10px;
-    justify-content: space-between;
-    position: fixed;
+	width: 425px;
+	height: 600px;
+	padding: 25px 50px;
+	display: none;
+	flex-direction: column;
+	border-radius: 10px;
+	justify-content: space-between;
+	position: fixed;
 	top: 35px;
-    left: 350px;
+	left: 350px;
 }
 
 i.fa-solid.fa-xmark {
@@ -525,4 +525,56 @@ i.fa-solid.fa-xmark {
 	background: black;
 	padding: 3px;
 	color: white;
+}
+
+.separation-line {
+	border: 1px solid grey;
+	width: 100%;
+}
+
+.invisible {
+	display: none;
+}
+
+#buttonImageUpload {
+	color: #306685;
+	background: #CBD6DC;
+	padding: 10px 20px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#iconImageUpload {
+	font-size: 60px;
+	color: #B9C5CC;
+}
+
+#uploadAddImagecontainer {
+	padding: 33px 66px;
+	background: #E8F1F7;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	align-items: center;
+}
+
+.little-text {
+	font-size: 12px;
+}
+
+#addImageForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+#image {
+	height: 150px;
+}
+
+#modalWrapperAddContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
