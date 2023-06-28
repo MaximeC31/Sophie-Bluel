@@ -443,7 +443,8 @@ a:active {
 	justify-content: space-between;
 	position: fixed;
 	top: 35px;
-	left: 350px;
+	left: 350px;	
+    gap: 30px;
 }
 
 i.fa-solid.fa-xmark {
@@ -497,6 +498,7 @@ i.fa-solid.fa-xmark {
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	grid-gap: 10px;
+	overflow: overlay;
 }
 
 #modal-elements>div {

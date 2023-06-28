@@ -1,5 +1,5 @@
 // Add an event listener to the login form for when it is submitted
-document.getElementById("login-form").addEventListener("submit", async function logginForm (event) {
+document.getElementById("login-form").addEventListener("submit", async function loginForm (event) {
         try {
             event.preventDefault();
 
@@ -7,7 +7,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
             const emailInputValue = document.getElementById("email-input").value;
             const passwordInputValue = document.getElementById("password-input").value;
 
-            // Make a POST request to the login API endpoint with the email and password values in the request body
+            // Make a POST request to the login API with the email and password values in the request body
             const response = await fetch("http://localhost:5678/api/users/login", {
                 method: "POST",
                 headers: {
@@ -28,9 +28,9 @@ document.getElementById("login-form").addEventListener("submit", async function 
 
             // Display errors in response.status
             else if (response.status === 401) {
-                alert(response.statusText);
+                alert("Mauvais mot de passe", response.statusText);
             } else if (response.status === 404) {
-                alert(response.statusText);
+                alert("Identifiants faux", response.statusText);
             } else {
                 alert("Reponse status undefined");
             }
