@@ -580,3 +580,7 @@ i.fa-solid.fa-xmark {
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.invisible-picture {
+    opacity: 0;
+}

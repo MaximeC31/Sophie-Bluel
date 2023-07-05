@@ -52,7 +52,7 @@ async function initProjects() {
     if (response.status === 200) {
       let worksList = await response.json();
       console.log("init worksList response 20X", response);
-      console.log("init workList", worksList);
+      console.log("init worksList", worksList);
       refreshProjects(worksList);
       return worksList;
     }
@@ -67,7 +67,7 @@ async function initProjects() {
 
 // Function to display projects on mainscreen
 function refreshProjects(worksList) {
-  console.log("workList on main screen refresh", worksList);
+  console.log("worksList on main screen refresh", worksList);
   const galleryContainer = document.querySelector(".gallery");
   galleryContainer.innerHTML = "";
 
@@ -89,16 +89,17 @@ function filterProjects(projectId, worksList) {
   gallery.innerHTML = "";
 
   // Filter projects based on the selected category
-  const filteredProjects = worksList.filter((project) => {
+  console.log("worksList before filters", worksList);
+  filteredWorksList = worksList.filter((project) => {
     if (projectId === "0") {
       return true;
     } else {
-      return projectId == project.category.id;
+      return projectId == project.categoryId;
     }
   })
 
   // Display filtered projects in the gallery
-  for (const work of filteredProjects) {
+  for (const work of filteredWorksList) {
     const projectContainer = document.createElement("figure");
     gallery.appendChild(projectContainer);
 
@@ -111,6 +112,7 @@ function filterProjects(projectId, worksList) {
     projectTitle.innerHTML = work.title;
     projectContainer.appendChild(projectTitle);
   }
+  console.log("filteredWorksList", filteredWorksList)
 }
 
 
@@ -233,9 +235,11 @@ function createInterfaceForLoggedUsers(worksList, categories) {
           })
         }
 
+
+
         // Delete all works
         document.getElementById("delete-element-modal").addEventListener("click", async function deleteAllWorks() {
-          for (const work of worksList) {
+          for (const work of [...worksList]) {
 
             try {
               const response = await fetch(`http://localhost:5678/api/works/${work.id}`,
@@ -247,14 +251,14 @@ function createInterfaceForLoggedUsers(worksList, categories) {
                 })
 
               if (response.status === 200 || 204) {
-                // delete all works
-                worksList = [];
-                console.log("fetch delete response 20X", response);
+                worksList.splice(0, worksList.length);
                 console.log("worksList with all deleted", worksList);
+                console.log("fetch delete response 20X", response);
 
                 // close modal and refresh projects on main screen
-                closeModal();
                 refreshProjects(worksList);
+                closeModal();
+
 
               } else if (response.status === 401) {
                 console.error("Unauthorized", response.statusText);
@@ -289,7 +293,7 @@ function createInterfaceForLoggedUsers(worksList, categories) {
 <div id="uploadAddImagecontainer">
 <i class="fa-sharp fa-regular fa-image" id="iconImageUpload"></i>
 <label for="picture" id="buttonImageUpload">+ Ajouter photo</label>
-<input id="picture" class="invisible" type="file" name="image" onchange="previewPicture(this)" required>
+<input id="picture" class="invisible-picture" type="file" name="image" onchange="previewPicture(this)">
 <img name="imageUrl" style='display:none' src="#" id="image">
 <p class="little-text">jpg, png : 4mo max</p>
 </div>
@@ -339,6 +343,13 @@ function createInterfaceForLoggedUsers(worksList, categories) {
           try {
             event.preventDefault();
 
+            let inputImage = document.getElementById('picture');
+            if (inputImage.files.length == 0)
+            {
+              alert("Veuillez insérer une image.");
+              return false;
+            }
+
             let form = document.getElementById("addImageForm");
             let formData = new FormData(form);
 
@@ -357,6 +368,7 @@ function createInterfaceForLoggedUsers(worksList, categories) {
               newObjectToAdd.categoryId = parseInt(newObjectToAdd.categoryId);
 
               worksList.push(newObjectToAdd);
+              console.log(newObjectToAdd)
               console.log("fetch add response 20X", response);
               console.log("worksList after work added", worksList);
 
@@ -365,6 +377,7 @@ function createInterfaceForLoggedUsers(worksList, categories) {
 
             } else if (response.status === 400) {
               console.error("Bad Request", response);
+              alert("Veuillez insérer un titre et une catégorie, l'un des ces éléments est manquant.");
             } else if (response.status === 401) {
               console.error("Unauthorized", response);
             } else if (response.status === 500) {
